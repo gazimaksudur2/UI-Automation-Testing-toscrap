@@ -19,7 +19,7 @@ def test_homepage_links(
     assert urls, "No HTTP links found"
     api = playwright.request.new_context(
         ignore_https_errors=browser_context_args.get(
-            "ignore_http_errors", False
+            "ignore_https_errors", False
         )
     )
 
@@ -27,7 +27,7 @@ def test_homepage_links(
     try:
         for url in urls:
             try:
-                response = api.get(url, timeout=2000)
+                response = api.get(url, timeout=10000)
                 if response.status != 200:
                     failures.append(f"{response.status}: {url}")
             except PlaywrightError as exc:
