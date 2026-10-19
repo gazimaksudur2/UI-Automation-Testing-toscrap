@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, expect
-from pages.books_home_page import BooksHomePage
+
 from config.settings import BOOKS_HOME_URL
+from pages.books_home_page import BooksHomePage
 
 
 def test_homepage_validation(page: Page):

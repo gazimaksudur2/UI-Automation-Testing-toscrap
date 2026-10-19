@@ -1,4 +1,5 @@
 from playwright.sync_api import Page
+
 from config.settings import BOOKS_HOME_URL
 
 
@@ -14,3 +15,18 @@ class BooksHomePage:
 
     def get_book_count(self) -> int:
         return self.book_cards.count()
+
+    def get_book_titles(self) -> list[str]:
+        links = self.book_cards.locator("h3 a")
+        titles = [link.get_attribute("title") for link in links.all()]
+        return [title for title in titles if title]
+
+    def open_book_by_title(self, title: str) -> None:
+        links = self.book_cards.locator("h3 a")
+
+        for link in links.all():
+            if link.get_attribute("title") == title:
+                link.click()
+                return
+
+        raise ValueError(f"Book not found: {title}")
