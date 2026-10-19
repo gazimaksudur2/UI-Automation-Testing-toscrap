@@ -38,5 +38,9 @@ class BooksHomePage:
 
         if not book_title:
             raise ValueError("Book title is empty")
-
         return book_title, book_price
+
+    def get_all_hrefs(self) -> list[str]:
+        return self.page.locator("a[href]").evaluate_all(
+            "(elements) => elements.map(el => el.getAttribute('href'))"
+        )
