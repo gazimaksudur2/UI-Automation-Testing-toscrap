@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Locator, Page
 
 from config.settings import BOOKS_HOME_URL
 
@@ -22,11 +22,21 @@ class BooksHomePage:
         return [title for title in titles if title]
 
     def open_book_by_title(self, title: str) -> None:
-        links = self.book_cards.locator("h3 a")
+        card = self.get_book_card(title)
+        card.locator("h3 a").click()
 
-        for link in links.all():
-            if link.get_attribute("title") == title:
-                link.click()
-                return
-
+    def get_book_card(self, title: str) -> Locator:
+        for card in self.book_cards.all():
+            if card.locator("h3 a").get_attribute("title") == title:
+                return card
         raise ValueError(f"Book not found: {title}")
+
+    def get_book_data(self, title: str) -> tuple[str, str]:
+        card = self.get_book_card(title)
+        book_title = card.locator("h3 a").get_attribute("title")
+        book_price = card.locator(".price_color").inner_text().strip()
+
+        if not book_title:
+            raise ValueError("Book title is empty")
+
+        return book_title, book_price
