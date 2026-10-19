@@ -1,0 +1,60 @@
+
+name: Playwright UI Automation CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ui-tests:
+    name: Docker Playwright Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t books-ui-tests .
+
+      - name: Prepare report directories
+        run: mkdir -p reports/html allure-results test-results
+
+      - name: Run Playwright tests
+        run: |
+          docker run --rm --init --ipc=host \
+            -v "$PWD/reports:/app/reports" \
+            -v "$PWD/allure-results:/app/allure-results" \
+            -v "$PWD/test-results:/app/test-results" \
+            books-ui-tests
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-html-report
+          path: reports/html/
+          if-no-files-found: warn
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/
+          if-no-files-found: warn
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          if-no-files-found: warn

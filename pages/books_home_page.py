@@ -9,6 +9,8 @@ class BooksHomePage:
         self.book_cards = page.locator("article.product_pod")
         self.headings = page.locator("h1, h2, h3, h4, h5, h6")
         self.books_section = page.locator("section:has(article.product_pod)")
+        self.product_images = page.locator("article.product_pod img")
+        self.next_button = page.locator("li.next a")
 
     def navigate(self) -> None:
         self.page.goto(BOOKS_HOME_URL)
@@ -44,3 +46,12 @@ class BooksHomePage:
         return self.page.locator("a[href]").evaluate_all(
             "(elements) => elements.map(el => el.getAttribute('href'))"
         )
+
+    def get_product_images(self):
+        return self.product_images.all()
+
+    def has_next_page(self) -> bool:
+        return self.next_button.count() > 0
+
+    def go_to_next_page(self) -> None:
+        self.next_button.click()
