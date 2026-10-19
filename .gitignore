@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Local development
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+
+# Test outputs and reports
+reports/
+allure-results/
+allure-report/
+test-results/
+screenshots/
+videos/
+traces/
+playwright-report/
+
+# Miscellaneous
+*.log
+coverage.xml
+.coverage
+htmlcov/
