@@ -19,8 +19,12 @@ class QuotesLoginPage:
         expect(self.submit_button).to_be_enabled()
 
     def login(self, username: str, password: str) -> None:
-        self.username.fill(username)
-        self.password.fill(password)
+        """Type username and password character-by-character like a real user."""
+        self.username.click()
+        self.username.press_sequentially(username, delay=100)
+
+        self.password.click()
+        self.password.press_sequentially(password, delay=100)
 
         expect(self.username).to_have_value(username)
         expect(self.password).to_have_value(password)
