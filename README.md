@@ -45,8 +45,8 @@ The framework uses the Page Object Model (POM) pattern, custom Pytest fixtures, 
 ### Steps
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd ui-automation-books-to-scrap
+   git clone https://github.com/gazimaksudur2/UI-Automation-Testing-toscrap.git
+   cd UI-Automation-Testing-toscrap
    ```
 
 2. **Create and activate a virtual environment:**
@@ -139,7 +139,7 @@ docker run --rm --init --ipc=host \
 
 ## Project Structure
 ```text
-ui-automation-books-to-scrap/
+UI-Automation-Testing-toscrap/
 ├── .github/
 │   └── workflows/
 │       └── playwright.yml              # GitHub Actions CI/CD workflow
