@@ -64,7 +64,7 @@ The framework uses the Page Object Model (POM) pattern, custom Pytest fixtures, 
 
 4. **Install Playwright Chromium browser and system dependencies:**
    ```bash
-   python -m playwright install --with-deps chromium
+   python -m playwright install chromium
    ```
 
 ---
@@ -86,21 +86,12 @@ Target URLs are centralized in `config/settings.py`:
 
 ### 1. Run All Tests (Default Configuration)
 ```bash
-python -m pytest tests/ -v \
-  --browser=chromium \
-  --html=reports/html/report.html \
-  --self-contained-html \
-  --alluredir=allure-results \
-  --clean-alluredir \
-  --tracing=retain-on-failure \
-  --screenshot=only-on-failure \
-  --video=retain-on-failure \
-  --output=test-results
+python -m pytest
 ```
 
 ### 2. Run in Headed Mode (Visible Browser)
 ```bash
-python -m pytest tests/ -v --browser=chromium --headed
+python -m pytest tests/ -v --headed
 ```
 
 ### 3. Run Specific Test Modules
@@ -157,7 +148,6 @@ UI-Automation-Testing-toscrap/
 │   ├── test_book_data_consistency.py   # TC 3: Homepage vs Details data check
 │   ├── test_book_navigation.py         # TC 2: 5 random book navigation tests
 │   ├── test_broken_links.py            # TC 4: HTTP 200 hyperlink validation
-│   ├── test_environment.py             # Smoke test for browser environment
 │   ├── test_homepage.py                # TC 1: Homepage structure & headings
 │   ├── test_product_images.py          # TC 5: Image attributes & 5-page pagination
 │   └── test_quotes_login.py            # TC 6: Quotes login & logout verification
